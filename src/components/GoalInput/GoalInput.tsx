@@ -43,7 +43,8 @@ export const GoalInput: React.FunctionComponent<GoalInputProps> = ({ onGoalSet }
 
   useEffect(() => {
     onGoalSet(intermediateStates);
-  }, [intermediateStates, onGoalSet]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [intermediateStates]);
 
   const updateOkr = () => {
     setOkrValueName(okrValueNameInputRef.current!.value);

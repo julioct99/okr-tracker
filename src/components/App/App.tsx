@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { Container, Typography } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import CustomLineChart from '../charts/CustomLineChart/CustomLineChart';
 import { OkrItem } from '../../shared/types/okrItem';
 import { GoalInput } from '../GoalInput/GoalInput';
 import { ProgressInput } from '../ProgressInput/ProgressInput';
+
+const LOCAL_STORAGE_KEY = 'localStorageStates';
 
 export function App() {
   const [intermediateStates, setIntermediateStates] = useState<any[]>([]);
@@ -23,9 +25,26 @@ export function App() {
 
     const okrValueName = Object.keys(foundState)
       .find((key) => key !== 'date')
-      ?.split(' ')[1];
+      ?.split(' ')
+      .splice(1)
+      .join(' ');
     foundState[`${okrValueName}`] = newState.value;
     setIntermediateStates(states);
+  };
+
+  const saveToLocalStorage = () => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(intermediateStates));
+  };
+
+  const clearLocalStorage = () => {
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+  };
+
+  const loadFromLocalStorage = () => {
+    const localStorageStates = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (localStorageStates) {
+      setIntermediateStates(JSON.parse(localStorageStates));
+    }
   };
 
   return (
@@ -35,6 +54,25 @@ export function App() {
       </Typography>
       <GoalInput onGoalSet={handleGoalSet} />
       <ProgressInput onProgressAdded={handleProgressAdded} />
+      <div style={{ marginBottom: 15 }}>
+        <Button variant='contained' onClick={saveToLocalStorage}>
+          Save to local storage
+        </Button>
+        <Button
+          variant='contained'
+          onClick={clearLocalStorage}
+          style={{ marginLeft: 15 }}
+        >
+          Clear local storage
+        </Button>
+        <Button
+          variant='contained'
+          onClick={loadFromLocalStorage}
+          style={{ marginLeft: 15 }}
+        >
+          Load from local storage
+        </Button>
+      </div>
       {intermediateStates.length > 1 && (
         <CustomLineChart height={400} data={intermediateStates} />
       )}
