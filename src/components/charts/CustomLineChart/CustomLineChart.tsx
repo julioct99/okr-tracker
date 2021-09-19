@@ -37,7 +37,7 @@ const CustomLineChart: React.FunctionComponent<CustomLineChartProps> = ({
   const defaultMargin = {
     top: 5,
     right: 30,
-    left: 20,
+    left: 5,
     bottom: 5,
   };
 

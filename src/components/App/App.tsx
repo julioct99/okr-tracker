@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Container, Typography } from '@mui/material';
-import CustomLineChart from './charts/CustomLineChart';
-import { OkrItem } from '../shared/types/okrItem';
-import { GoalInput } from './GoalInput';
+import CustomLineChart from '../charts/CustomLineChart/CustomLineChart';
+import { OkrItem } from '../../shared/types/okrItem';
+import { GoalInput } from '../GoalInput/GoalInput';
 
 export function App() {
   const [intermediateStates, setIntermediateStates] = useState<any[]>([]);

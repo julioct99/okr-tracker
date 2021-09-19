@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, TextField } from '@mui/material';
-import { defaultOkrItem, OkrItem } from '../shared/types/okrItem';
-import { generateIntermediateStates } from '../shared/utils/okr';
+import { defaultOkrItem, OkrItem } from '../../shared/types/okrItem';
+import { generateIntermediateStates } from '../../shared/utils/okr';
 import styled from 'styled-components';
 
 interface GoalInputProps {
@@ -24,6 +24,7 @@ export const GoalInput: React.FunctionComponent<GoalInputProps> = ({ onGoalSet }
   const [goalDate, setGoalDate] = useState<Date>(new Date());
 
   const [okrValueName, setOkrValueName] = useState('value');
+
   const [intermediateStates, setIntermediateStates] = useState<any[]>([]);
 
   const okrValueNameInputRef = useRef<HTMLInputElement>();
@@ -31,13 +32,13 @@ export const GoalInput: React.FunctionComponent<GoalInputProps> = ({ onGoalSet }
   const okrValueInputRef = useRef<HTMLInputElement>();
 
   useEffect(() => {
-    const newIntermediateStates = generateIntermediateStates({
-      goalState,
-      initState,
-      okrValueName,
-    });
-
-    setIntermediateStates(newIntermediateStates);
+    setIntermediateStates(
+      generateIntermediateStates({
+        goalState,
+        initState,
+        okrValueName,
+      })
+    );
   }, [okrValueName, initState, goalState]);
 
   useEffect(() => {
