@@ -1,12 +1,8 @@
 import { Button, Container, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { useEffect, useRef, useState } from 'react';
-import CustomLineChart from './components/charts/CustomLineChart';
-
-interface OkrItem {
-  date: Date;
-  value: number;
-}
+import CustomLineChart from './charts/CustomLineChart';
+import { generateIntermediateStates } from '../shared/utils/okr';
 
 const OkrInput = styled('div')`
   margin-bottom: 50px;
@@ -31,30 +27,11 @@ export function App() {
       value: 15.0,
     };
 
-    const intermediateStates: OkrItem[] = [];
-
-    const daysDiff = goalState.date.getDate() - initState.date.getDate();
-    for (let i = 1; i <= daysDiff; i++) {
-      const date = new Date(initState.date.valueOf());
-      date.setDate(date.getDate() + i);
-
-      const absDiffValue = (Math.abs(goalState.value - initState.value) / daysDiff) * i;
-
-      const diffValue = goalState.value > initState.value ? absDiffValue : -absDiffValue;
-
-      const value: number = +(initState.value + diffValue).toFixed(2);
-      const item: OkrItem = {
-        date,
-        value,
-      };
-
-      intermediateStates.push(item);
-    }
-
-    const newIntermediateStates = intermediateStates.map((item) => ({
-      date: item.date.toLocaleDateString(),
-      [okrValueName]: item.value,
-    }));
+    const newIntermediateStates = generateIntermediateStates({
+      goalState,
+      initState,
+      okrValueName,
+    });
 
     setIntermadiateStates(newIntermediateStates);
   }, [okrValueName]);
