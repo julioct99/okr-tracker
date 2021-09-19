@@ -11,6 +11,8 @@ export const generateIntermediateStates = ({
   goalState: OkrItem;
   okrValueName: string;
 }): any[] => {
+  console.log(initState, goalState);
+
   const intermediateStates: OkrItem[] = [];
 
   const initMoment = moment(initState.date);
