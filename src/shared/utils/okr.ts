@@ -23,7 +23,7 @@ export const generateIntermediateStates = ({
     const value = +(initState.value + diffValue).toFixed(2);
     intermediateStates.push({
       date: date.toLocaleDateString(),
-      [okrValueName]: value,
+      [`goal ${okrValueName}`]: value,
     });
   }
 

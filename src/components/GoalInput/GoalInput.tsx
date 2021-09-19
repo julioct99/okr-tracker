@@ -1,12 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import { defaultOkrItem, OkrItem } from '../../shared/types/okrItem';
 import { generateIntermediateStates } from '../../shared/utils/okr';
 import styled from 'styled-components';
-
-interface GoalInputProps {
-  onGoalSet: (okrItems: OkrItem[]) => void;
-}
 
 const StyledContainer = styled('div')`
   margin-bottom: 50px;
@@ -15,6 +11,10 @@ const StyledContainer = styled('div')`
   justify-content: space-evenly;
   align-items: center;
 `;
+
+interface GoalInputProps {
+  onGoalSet: (okrItems: OkrItem[]) => void;
+}
 
 export const GoalInput: React.FunctionComponent<GoalInputProps> = ({ onGoalSet }) => {
   const [initState, setInitState] = useState<OkrItem>(defaultOkrItem);
@@ -65,6 +65,7 @@ export const GoalInput: React.FunctionComponent<GoalInputProps> = ({ onGoalSet }
 
   return (
     <StyledContainer>
+      <Typography variant='h4'>Goal</Typography>
       <TextField
         label='Objective name'
         placeholder='Example: weight, dollars...'
