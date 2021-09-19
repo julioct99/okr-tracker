@@ -54,7 +54,7 @@ const CustomLineChart: React.FunctionComponent<CustomLineChartProps> = ({
 
   useEffect(() => {
     const _lineNames = Object.keys(data[0]);
-    let [_domainLow, _domainHigh] = [1000, 1];
+    let [_domainLow, _domainHigh] = [99999, -99999];
     _lineNames.forEach((line) => {
       data.forEach((dataItem: any) => {
         const item = dataItem[line];
@@ -72,8 +72,8 @@ const CustomLineChart: React.FunctionComponent<CustomLineChartProps> = ({
         <XAxis dataKey={dataKey || defaultDataKey} />
         <YAxis domain={domain} />
         <Tooltip />
-        <Legend />
         {getLines()}
+        <Legend />
       </LineChart>
     </ResponsiveContainer>
   );
